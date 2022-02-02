@@ -1,6 +1,6 @@
+const express = require("express");
 const cors = require('cors');
 const morgan = require("morgan");
-const express = require("express");
 const bodyParser = require('body-parser');
 const apiRouter = require('./routes/index');
 require('dotenv').config();
@@ -8,13 +8,10 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors());
-
-
-app.use(morgan('dev'));
-app.set('port', process.env.PORT);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(morgan('dev'));
+app.set('port', process.env.PORT);
 
 
 app.use(apiRouter);

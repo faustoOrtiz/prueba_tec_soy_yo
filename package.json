@@ -8,7 +8,7 @@
     "test": "mocha test/entities.test.js --exit"
   },
   "keywords": [],
-  "author": "",
+  "author": "fausto ortiz",
   "license": "",
   "dependencies": {
     "body-parser": "^1.19.1",

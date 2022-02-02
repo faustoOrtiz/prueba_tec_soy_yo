@@ -16,7 +16,7 @@ const newEntity = (entity) => {
 const getEntity = async (id) => {
   
      return new Promise(function(resolve, reject){
-        request(`${process.env.AWS_URL}/${process.env.ENVIRONMENT}/entity/v2.1/entities/${id}`, function (error, response, body) {
+        request(`${process.env.WS}/${process.env.ENVIRONMENT}/entity/v2.1/entities/${id}`, function (error, response, body) {
             if (error) return reject(error);
             try {     
                 entity=JSON.parse(body).data;
@@ -47,8 +47,7 @@ const entityFilter = async (req, res, next) => {
             
             for (let i = startId; i <= endId; i++) {
                 entityFind = await getEntity(i);
-                if ( !entityFind.name || !entityFind.identificationNumber || !entityFind.expirationDate || !entityFind.contactName || !entityFind.contactMail
-                ) {
+                if ( !entityFind.name || !entityFind.identificationNumber || !entityFind.expirationDate || !entityFind.contactName || !entityFind.contactMail) {
                     status = true;
                     break;
                 }
@@ -59,14 +58,12 @@ const entityFilter = async (req, res, next) => {
                     error: "Error en validación datos de entrada",
                 });
             } else {
-                res.status(200).send({
-                    entities,
-                });
+                res.status(200).send({entities});
             }
         }
     } catch (error) {
         res.status(500).send({
-            error: "¡Error en el servidor!",
+            error: "Error ",
         });
         
     }
