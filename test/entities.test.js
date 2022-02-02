@@ -5,7 +5,7 @@ describe("POST /entities/filter", () => {
     it(" should  with 200 Status code List of entities", done => {
         request(app)
             .post("/entities/filter")
-            .send({ startId: 1, endId: 3 }) //startId = 1 & endId = 3
+            .send({ startId: 1, endId: 2 }) 
             .set("Accept", "application/json")
             .expect("content-Type", "application/json; charset=utf-8")
             .expect(200)
@@ -31,7 +31,7 @@ describe("POST /entities/filter", () => {
     it("should  with 404 Do not give rank values ", done => {
         request(app)
             .post("/entities/filter")
-            .send({}) // not startdId & not endId
+            .send({})
             .set("Accept", "application/json")
             .expect("content-Type", "application/json; charset=utf-8")
             .expect(404)
