@@ -58,7 +58,7 @@ const entityFilter = async (req, res) => {
                 });
             } else {
 
-                entities.sort(function (a, b) {
+                entities.sort((a, b)=> {
                     if (a.name > b.name) {
                       return 1;
                     }
@@ -67,7 +67,7 @@ const entityFilter = async (req, res) => {
                     }
                     return 0;
                   });
-                  
+
                 res.status(200).send({entities});
             }
         }
