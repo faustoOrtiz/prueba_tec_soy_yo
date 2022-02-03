@@ -57,6 +57,17 @@ const entityFilter = async (req, res) => {
                     error: "Error en validación datos de entrada",
                 });
             } else {
+
+                entities.sort(function (a, b) {
+                    if (a.name > b.name) {
+                      return 1;
+                    }
+                    if (a.name < b.name) {
+                      return -1;
+                    }
+                    return 0;
+                  });
+                  
                 res.status(200).send({entities});
             }
         }
