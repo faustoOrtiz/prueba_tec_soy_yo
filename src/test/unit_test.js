@@ -26,7 +26,7 @@ it("Should with 404 not found specified range", done => {
         })
 })
 
-it("Should  with 404 Do not give rank values ", done => {
+it("Should  with 404 not values ", done => {
     request(app)
         .post("/entities/filter")
         .send({}) 
