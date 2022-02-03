@@ -29,31 +29,30 @@ const getEntity = async (id) => {
   
 };
 
-const entityFilter = async (req, res, next) => {
-        
+const entityFilter = async (req, res) => {
+    let statusEntity = false;
+    const entities = [];
+         
     const startId = req.body.startId;
     const endId = req.body.endId;
-    let status = false;
-    const entities = [];
+   
     
     try {
         if ( startId < 1 || startId > 20 || !startId || endId < 1 || endId>20 || !endId || startId > endId  ) {
             res.status(404).send({
-                error: "Error no se encuentra para rango especificado",
+                error: "Error no se encuentra para rango especificado ",
             });
 
         } else {
            
-            
             for (let i = startId; i <= endId; i++) {
                 entityFind = await getEntity(i);
-                if ( !entityFind.name || !entityFind.identificationNumber || !entityFind.expirationDate || !entityFind.contactName || !entityFind.contactMail) {
-                    status = true;
-                    break;
+                statusEntity = await valfindEntity(entityFind);
+                if(!statusEntity){
+                    entities.push(newEntity(entityFind));
                 }
-                entities.push(newEntity(entityFind));
             }
-            if (status) {
+            if (statusEntity) {
                 res.status(400).send({
                     error: "Error en validación datos de entrada",
                 });
@@ -68,7 +67,17 @@ const entityFilter = async (req, res, next) => {
         
     }
 };
+const  valfindEntity = async (entityFind)=>{
+    
+    let status;
 
+    if(!entityFind.name || !entityFind.identificationNumber || !entityFind.expirationDate || !entityFind.contactName || !entityFind.contactMail){
+        status=true;
+    }else{
+        status=false;
+    }
+    return status
+} ;
 
 
 module.exports.entityFilter=entityFilter
